@@ -1,0 +1,36 @@
+/* PaginationBar.css */
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.pagination button {
+  background-color: #007bff; /* Blue background color */
+  border: none;
+  color: #fff; /* White text color */
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 8px 12px;
+  margin: 0 4px;
+  border-radius: 4px;
+  outline: none;
+}
+
+.pagination button:hover {
+  background-color: #0056b3; /* Darker blue background color on hover */
+}
+
+.pagination button:disabled {
+  background-color: #ccc; /* Gray background color for disabled buttons */
+  color: #fff; /* White text color for disabled buttons */
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-size: 18px;
+  margin: 0 10px;
+}

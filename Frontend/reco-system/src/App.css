@@ -1,0 +1,10 @@
+#root {
+  margin: 0;
+  font-family: "Assistant", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&display=swap');
+

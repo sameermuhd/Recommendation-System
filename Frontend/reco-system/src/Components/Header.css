@@ -1,0 +1,17 @@
+/* Header.css */
+
+.header {
+  background-color: #007bff;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+  font-size: 32px; /* Larger font size */
+  font-weight: bold;
+  margin: 0;
+  letter-spacing: 2px; /* Adding some letter spacing for elegance */
+  text-transform: uppercase; /* Transforming text to uppercase for a refined look */
+}
