@@ -43,9 +43,10 @@ from collections import Counter
 from IPython.display import HTML, display
 from PIL import Image
 
-nltk.download('punkt')
-nltk.download('stopwords')
-nltk.download('wordnet')
+if REQUIRE:
+  nltk.download('punkt')
+  nltk.download('stopwords')
+  nltk.download('wordnet')
 
 DEBUG = False
 DOWNLOAD = False
@@ -66,69 +67,71 @@ df = df.dropna(subset=['detail_desc'])
 if DEBUG:
   df.info()
 
-# Function to preprocess text
-stop_words = set(stopwords.words('english'))
-lemmatizer = WordNetLemmatizer()
+# # Function to preprocess text
+# stop_words = set(stopwords.words('english'))
+# lemmatizer = WordNetLemmatizer()
 
-def preprocess_text(text):
-    # Convert text to lowercase
-    text = text.lower()
+# def preprocess_text(text):
+#     # Convert text to lowercase
+#     text = text.lower()
 
-    # Remove punctuation
-    text = re.sub(r'[^\w\s]', '', text)
+#     # Remove punctuation
+#     text = re.sub(r'[^\w\s]', '', text)
 
-    # Tokenize text
-    tokens = word_tokenize(text)
+#     # Tokenize text
+#     tokens = word_tokenize(text)
 
-    # Remove stopwords
-    tokens = [word for word in tokens if word not in stop_words]
+#     # Remove stopwords
+#     tokens = [word for word in tokens if word not in stop_words]
 
-    # Lemmatization
-    tokens = [lemmatizer.lemmatize(word) for word in tokens]
+#     # Lemmatization
+#     tokens = [lemmatizer.lemmatize(word) for word in tokens]
 
-    # Join tokens back into a single string
-    preprocessed_text = ' '.join(tokens)
+#     # Join tokens back into a single string
+#     preprocessed_text = ' '.join(tokens)
 
-    return preprocessed_text
+#     return preprocessed_text
 
-df['detail_desc'] = df['detail_desc'].astype(str)
+# df['detail_desc'] = df['detail_desc'].astype(str)
 
-# Memory usage before optimization
-if DEBUG:
-  print("Memory usage before optimization:", df['detail_desc'].memory_usage(deep=True))
+# # Memory usage before optimization
+# if DEBUG:
+#   print("Memory usage before optimization:", df['detail_desc'].memory_usage(deep=True))
 
-# Apply preprocessing to the product_description column
-df['detail_desc'] = df['detail_desc'].apply(preprocess_text)
+# # Apply preprocessing to the product_description column
+# df['detail_desc'] = df['detail_desc'].apply(preprocess_text)
 
-# Memory usage after optimization
-if DEBUG:
-  print("Memory usage before optimization:", df['detail_desc'].memory_usage(deep=True))
+# # Memory usage after optimization
+# if DEBUG:
+#   print("Memory usage before optimization:", df['detail_desc'].memory_usage(deep=True))
 
-top_most_common_words = 200
+# top_most_common_words = 200
 
-# Step 1: Tokenization
-tokenized_sentences = df['detail_desc'].apply(lambda x: x.split())
+# # Step 1: Tokenization
+# tokenized_sentences = df['detail_desc'].apply(lambda x: x.split())
 
-# Step 2: Vocabulary Creation
-word_counts = Counter(word for sentence in tokenized_sentences for word in sentence)
-vocab = [word for word, _ in word_counts.most_common(top_most_common_words)]  # Keep only top n words
+# # Step 2: Vocabulary Creation
+# word_counts = Counter(word for sentence in tokenized_sentences for word in sentence)
+# vocab = [word for word, _ in word_counts.most_common(top_most_common_words)]  # Keep only top n words
 
-# Step 3 & 4: Word Frequency Calculation and Vector Representation
-bag_of_words_vectors = []
-for index, tokenized_sentence in tokenized_sentences.items():
-    word_counts = Counter(tokenized_sentence)
-    vector = [word_counts[word] for word in vocab]
-    bag_of_words_vectors.append([index] + vector)
+# # Step 3 & 4: Word Frequency Calculation and Vector Representation
+# bag_of_words_vectors = []
+# for index, tokenized_sentence in tokenized_sentences.items():
+#     word_counts = Counter(tokenized_sentence)
+#     vector = [word_counts[word] for word in vocab]
+#     bag_of_words_vectors.append([index] + vector)
 
-# Convert bag_of_words_vectors to DataFrame
-bag_of_words_df = pd.DataFrame(bag_of_words_vectors, columns=['article_id'] + vocab)
-bag_of_words_df.set_index('article_id', inplace=True)
+# # Convert bag_of_words_vectors to DataFrame
+# bag_of_words_df = pd.DataFrame(bag_of_words_vectors, columns=['article_id'] + vocab)
+# bag_of_words_df.set_index('article_id', inplace=True)
 
-# Concatenate bag_of_words_df with the original DataFrame df using article_id as index
+# # Concatenate bag_of_words_df with the original DataFrame df using article_id as index
+# df = df.drop(columns=['detail_desc'])
+# df = pd.concat([df, bag_of_words_df], axis=1)
+# if DEBUG:
+#   df
+
 df = df.drop(columns=['detail_desc'])
-df = pd.concat([df, bag_of_words_df], axis=1)
-if DEBUG:
-  df
 
 # Function to recommend similar products based on input product
 def recommend_similar_products(article_id, top_n=10):
