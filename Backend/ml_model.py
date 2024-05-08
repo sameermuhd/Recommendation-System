@@ -52,20 +52,33 @@ DEBUG = False
 DOWNLOAD = False
 
 # if DOWNLOAD:
-#   !wget https://raw.githubusercontent.com/sameermuhd/Recommendation-System/main/Backend/Machine-Learning-Model/Dateset/articles.csv
+#   !wget https://raw.githubusercontent.com/sameermuhd/Recommendation-System/main/Backend/filtered_articles.csv
 
-df_complete = pd.read_csv("articles.csv", index_col = "article_id")
+df_complete = pd.read_csv("filtered_articles.csv", index_col = "article_id")
 
 if DEBUG:
   df_complete.info()
 
-columns_to_drop = ['prod_name', 'product_type_name', 'graphical_appearance_name', 'product_group_name',
-                   'colour_group_name', 'perceived_colour_value_name', 'perceived_colour_master_name',
-                   'department_name', 'index_name', 'index_code', 'index_group_name', 'section_name', 'garment_group_name']
-df = df_complete.drop(columns=columns_to_drop)
-df = df.dropna(subset=['detail_desc'])
+# columns_to_drop = ['prod_name', 'product_type_name', 'graphical_appearance_name', 'product_group_name',
+#                    'colour_group_name', 'perceived_colour_value_name', 'perceived_colour_master_name',
+#                    'department_name', 'index_name', 'index_code', 'index_group_name', 'section_name', 'garment_group_name']
+
+# df = df_complete.drop(columns=columns_to_drop)
+# df = df.dropna(subset=['detail_desc'])
+
+columns_to_keep = ['product_type_name', 'product_group_name', 'graphical_appearance_name', 'colour_group_name',
+                   'perceived_colour_value_name', 'perceived_colour_master_name', 'department_name', 'index_name', 'index_group_name',
+                   'section_name', 'garment_group_name']
+
+df = df_complete[columns_to_keep]
+
 if DEBUG:
   df.info()
+
+# One-Hot Encoding
+one_hot_encoded = pd.get_dummies(df)
+if DEBUG:
+  one_hot_encoded
 
 # Function to preprocess text
 stop_words = set(stopwords.words('english'))
@@ -92,23 +105,23 @@ def preprocess_text(text):
 
     return preprocessed_text
 
-df['detail_desc'] = df['detail_desc'].astype(str)
+df_complete['detail_desc'] = df_complete['detail_desc'].astype(str)
 
 # Memory usage before optimization
 if DEBUG:
-  print("Memory usage before optimization:", df['detail_desc'].memory_usage(deep=True))
+  print("Memory usage before optimization:", df_complete['detail_desc'].memory_usage(deep=True))
 
 # Apply preprocessing to the product_description column
-df['detail_desc'] = df['detail_desc'].apply(preprocess_text)
+df_complete['detail_desc'] = df_complete['detail_desc'].apply(preprocess_text)
 
 # Memory usage after optimization
 if DEBUG:
-  print("Memory usage before optimization:", df['detail_desc'].memory_usage(deep=True))
+  print("Memory usage before optimization:", df_complete['detail_desc'].memory_usage(deep=True))
 
 top_most_common_words = 200
 
 # Step 1: Tokenization
-tokenized_sentences = df['detail_desc'].apply(lambda x: x.split())
+tokenized_sentences = df_complete['detail_desc'].apply(lambda x: x.split())
 
 # Step 2: Vocabulary Creation
 word_counts = Counter(word for sentence in tokenized_sentences for word in sentence)
@@ -119,6 +132,7 @@ bag_of_words_vectors = []
 for index, tokenized_sentence in tokenized_sentences.items():
     word_counts = Counter(tokenized_sentence)
     vector = [word_counts[word] for word in vocab]
+    vector = list(map(lambda num: num >= 1, vector))
     bag_of_words_vectors.append([index] + vector)
 
 # Convert bag_of_words_vectors to DataFrame
@@ -126,30 +140,50 @@ bag_of_words_df = pd.DataFrame(bag_of_words_vectors, columns=['article_id'] + vo
 bag_of_words_df.set_index('article_id', inplace=True)
 
 # Concatenate bag_of_words_df with the original DataFrame df using article_id as index
-df = df.drop(columns=['detail_desc'])
-df = pd.concat([df, bag_of_words_df], axis=1)
-if DEBUG:
-  df
-
 # df = df.drop(columns=['detail_desc'])
+one_hot_encoded_original = pd.concat([one_hot_encoded, bag_of_words_df], axis=1)
+
+if DEBUG:
+  one_hot_encoded
+
+from sklearn.metrics import jaccard_score
+from sklearn.metrics import hamming_loss
+from scipy.spatial.distance import hamming
+
+# # Calculate Jaccard Similarity
+# def jaccard_similarity(article_id, other_articles):
+#     article_vector = one_hot_encoded.loc[article_id].values
+#     other_vectors = one_hot_encoded.loc[other_articles.index].values
+#     similarities = [1 - hamming_loss(article_vector, other_vector) for other_vector in other_vectors]
+#     return similarities
+
+def jaccard_similarity(article_id, other_articles):
+    # Get the one-hot encoded vector for the article
+    article_vector = one_hot_encoded.loc[article_id].values
+
+    # Get the one-hot encoded vectors for other articles
+    other_vectors = one_hot_encoded.loc[other_articles.index].values
+
+    # Compute Hamming distances
+    hamming_distances = np.apply_along_axis(hamming, 1, other_vectors, article_vector)
+
+    # Calculate Jaccard similarities
+    similarities = 1 - hamming_distances
+
+    return similarities
 
 # Function to recommend similar products based on input product
 def recommend_similar_products(article_id, top_n=10):
-    # Find features of input product
-    product_features = df.loc[article_id].values.reshape(1, -1)
+    # Find Top n Similar Articles
+    similarities = jaccard_similarity(article_id, df[df.index != article_id])
+    similar_articles = df_complete[df.index != article_id].copy()
+    similar_articles['Similarity'] = similarities
+    similar_articles = similar_articles.nlargest(top_n, 'Similarity')
 
-    # Calculate cosine similarity between input product and all other products
-    similarities = cosine_similarity(product_features, df)
-
-    # Get indices of top similar products
-    similar_indices = similarities.argsort(axis=1)[0][-top_n-1:-1][::-1]
-
-    # Get top similar product details
-    top_similar_products = df_complete.iloc[similar_indices]
-    top_similar_products['article_id'] = top_similar_products.index
-    top_similar_products['article_id'] = top_similar_products['article_id'].apply(np.int64)
+    similar_articles['article_id'] = similar_articles.index
+    similar_articles['article_id'] = similar_articles['article_id'].apply(np.int64)
 
     # Convert all columns to strings
-    top_similar_products = top_similar_products.astype(str)
+    top_similar_products = similar_articles.astype(str)
 
     return top_similar_products.to_json(orient='records')
