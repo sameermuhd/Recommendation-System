@@ -59,13 +59,6 @@ df_complete = pd.read_csv("filtered_articles.csv", index_col = "article_id")
 if DEBUG:
   df_complete.info()
 
-# columns_to_drop = ['prod_name', 'product_type_name', 'graphical_appearance_name', 'product_group_name',
-#                    'colour_group_name', 'perceived_colour_value_name', 'perceived_colour_master_name',
-#                    'department_name', 'index_name', 'index_code', 'index_group_name', 'section_name', 'garment_group_name']
-
-# df = df_complete.drop(columns=columns_to_drop)
-# df = df.dropna(subset=['detail_desc'])
-
 columns_to_keep = ['product_type_name', 'product_group_name', 'graphical_appearance_name', 'colour_group_name',
                    'perceived_colour_value_name', 'perceived_colour_master_name', 'department_name', 'index_name', 'index_group_name',
                    'section_name', 'garment_group_name']
@@ -140,8 +133,7 @@ bag_of_words_df = pd.DataFrame(bag_of_words_vectors, columns=['article_id'] + vo
 bag_of_words_df.set_index('article_id', inplace=True)
 
 # Concatenate bag_of_words_df with the original DataFrame df using article_id as index
-# df = df.drop(columns=['detail_desc'])
-one_hot_encoded_original = pd.concat([one_hot_encoded, bag_of_words_df], axis=1)
+one_hot_encoded = pd.concat([one_hot_encoded, bag_of_words_df], axis=1)
 
 if DEBUG:
   one_hot_encoded
@@ -150,19 +142,12 @@ from sklearn.metrics import jaccard_score
 from sklearn.metrics import hamming_loss
 from scipy.spatial.distance import hamming
 
-# # Calculate Jaccard Similarity
-# def jaccard_similarity(article_id, other_articles):
-#     article_vector = one_hot_encoded.loc[article_id].values
-#     other_vectors = one_hot_encoded.loc[other_articles.index].values
-#     similarities = [1 - hamming_loss(article_vector, other_vector) for other_vector in other_vectors]
-#     return similarities
-
-def jaccard_similarity(article_id, other_articles):
+def jaccard_similarity(article_id, other_articles_indices):
     # Get the one-hot encoded vector for the article
     article_vector = one_hot_encoded.loc[article_id].values
 
     # Get the one-hot encoded vectors for other articles
-    other_vectors = one_hot_encoded.loc[other_articles.index].values
+    other_vectors = one_hot_encoded.loc[other_articles_indices].values
 
     # Compute Hamming distances
     hamming_distances = np.apply_along_axis(hamming, 1, other_vectors, article_vector)
@@ -175,7 +160,7 @@ def jaccard_similarity(article_id, other_articles):
 # Function to recommend similar products based on input product
 def recommend_similar_products(article_id, top_n=10):
     # Find Top n Similar Articles
-    similarities = jaccard_similarity(article_id, df[df.index != article_id])
+    similarities = jaccard_similarity(article_id, df[df.index != article_id].index)
     similar_articles = df_complete[df.index != article_id].copy()
     similar_articles['Similarity'] = similarities
     similar_articles = similar_articles.nlargest(top_n, 'Similarity')
