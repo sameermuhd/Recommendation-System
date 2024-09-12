@@ -1,0 +1,55 @@
+.divClass {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+.filter-btn {
+  font: inherit;
+  background-color: white;
+  color: black;
+  margin: 5px;
+  padding: 10px;
+  border: none; /* Remove border */
+  cursor: pointer;
+  transition: color 0.3s, text-decoration 0.3s; /* Transition for color and underline animation */
+  text-align: center; /* Center align text */
+}
+
+.filter-btn:hover {
+  font: inherit;
+  color: black; /* Ensure font color remains black on hover */
+  text-decoration: underline; /* Add underline on hover */
+}
+
+.filter-btn.active {
+  font: inherit;
+  background-color: blue;
+  color: white;
+}
+
+.clear-btn {
+  font: inherit;
+  background-color: white;
+  color: red;
+  margin: 5px;
+  border: none; /* Remove border */
+  cursor: pointer;
+  transition: opacity 0.3s, text-decoration 0.3s; /* Transition for opacity and underline animation */
+  text-align: center; /* Center align text */
+}
+
+.clear-btn:disabled {
+  font: inherit;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.clear-btn:not(:disabled):hover {
+  font: inherit;
+  background-color: white;
+  text-decoration: underline; /* Add underline on hover */
+}

@@ -1,13 +1,24 @@
-// src/components/Header.js
 import React from 'react';
-import './Header.css';
+import { useNavigate } from 'react-router-dom';
+import './Header.css';  // Import the CSS file
+import websiteLogo from '../Data/website-logo.png';
 
-function Header() {
+const Header = () => {
+  const navigate = useNavigate();
+  const reloadPage = () => {
+    navigate('/'); // Redirect to the About page
+  };
+
   return (
     <header className="header">
-      <h1>Recommendation System</h1>
+      <img
+        src={websiteLogo}
+        alt="Logo"
+        className="header-image"
+        onClick={reloadPage}
+      />
     </header>
   );
-}
+};
 
 export default Header;

@@ -1,59 +1,30 @@
-// Import necessary React components and styles
-import React, { useState, useEffect } from 'react';
-import ProductCard from '../Components/ProductCard';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../Components/Header';
-import PaginationBar from '../Components/PaginationBar'; // Import the PaginationBar component
-import './HomePage.css';
+import FilterComponent from '../Components/FilterComponent';
+import FooterComponent from '../Components/FooterComponent';
+import './HomePage.css';  // Import the CSS file for HomePage
+import poster01 from '../Data/poster-01.png'
+import poster02 from '../Data/poster-02.png'
 
-function HomePage() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [productsData, setProductsData] = useState([]);
+const HomePage = () => {
+  const navigate = useNavigate();
 
-  const pageLimit = 80; // Number of products per page
-
-  useEffect(() => {
-    // Load products data for the current page
-    loadProductsData(currentPage);
-  }, [currentPage]); // Reload data whenever currentPage changes
-
-  useEffect(() => {
-    // Scroll to the top of the page when currentPage changes
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [currentPage]);
-
-  const loadProductsData = async (page) => {
-    try {
-      const pageData = await import(`../Data/product_json_files/page_${page}.json`);
-      setProductsData(pageData.default); // Default export of the dynamically imported module
-    } catch (error) {
-      console.error('Error loading products:', error);
-    }
-  };
-
-  const nextPage = () => {
-    setCurrentPage(currentPage + 1);
-  };
-
-  const prevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
+  const handleFilterSelect = (filter) => {
+    navigate('/productsCollection'); // Redirect to the About page
   };
 
   return (
-    <div className="homepage-container">
+    <div className="home-page">
       <Header />
-      <div className="content-container">
-        <PaginationBar currentPage={currentPage} prevPage={prevPage} nextPage={nextPage} /> {/* PaginationBar at top */}
-        <div className="product-list">
-          {productsData.map(product => (
-            <ProductCard key={product.article_id} product={product} />
-          ))}
-        </div>
-        <PaginationBar currentPage={currentPage} prevPage={prevPage} nextPage={nextPage} /> {/* PaginationBar at bottom */}
+      <FilterComponent onFilterSelect={handleFilterSelect} />
+      <div className="images-container">
+        <img src={poster01} alt="Image 1" className="image-section-first" />
+        <img src={poster02} alt="Image 2" className="image-section-second" />
       </div>
+      <FooterComponent />
     </div>
   );
-}
+};
 
 export default HomePage;
