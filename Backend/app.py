@@ -68,13 +68,13 @@ def get_image(id):
         # If the file doesn't exist or there's an error, send a 404 response
         return 'Image not found', 404
 
-# @app.route('/api/similar-products/<productId>', methods=['GET'])
-# def similar_products(productId):
-#     try:
-#         similar_products = recommend_similar_products(int(productId))
-#         return similar_products
-#     except Exception as e:
-#         return jsonify({'error': str(e)}), 500
+@app.route('/api/similar-products/<productId>', methods=['GET'])
+def similar_products(productId):
+    try:
+        similar_products = recommend_similar_products(int(productId))
+        return similar_products
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(port=PORT, debug=False)
