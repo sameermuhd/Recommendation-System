@@ -6,6 +6,7 @@ import FooterComponent from '../Components/FooterComponent';
 import './HomePage.css';  // Import the CSS file for HomePage
 import poster01 from '../Data/poster-01.png'
 import poster02 from '../Data/poster-02.png'
+import poster03 from '../Data/poster-03.svg'
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const HomePage = () => {
       <Header />
       <FilterComponent onFilterSelect={handleFilterSelect} />
       <div className="images-container">
-        <img src={poster01} alt="Image 1" className="image-section-first" />
+        <img src={poster03} alt="Image 1" className="image-section-first" />
         <img src={poster02} alt="Image 2" className="image-section-second" />
       </div>
       <FooterComponent />

@@ -3,10 +3,36 @@
   justify-content: center;
   align-items: center;
   height: 80px;
+  background-color: #f8f9fa; 
 }
 
 .header-image {
   cursor: pointer;
   max-width: 30%;
   transition: transform 0.2s ease;
+}
+
+.header-left, .header-right {
+  display: flex;
+  align-items: center;
+  padding: 0 30px;
+}
+
+.header-center {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1; /* Allow the logo to stay centered */
+}
+
+.icon {
+  font-size: 2rem; /* Adjust size of icons */
+  margin: 0 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+  color: #333;
+}
+
+.icon:hover {
+  transform: scale(1.2); /* Slight zoom on hover */
+  color: #007bff; /* Add hover effect color */
 }

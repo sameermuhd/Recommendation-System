@@ -20,6 +20,7 @@ function ProductPage() {
 
   useEffect(() => {
     // Fetch additional product information from the API
+    console.log(product.article_id)
     fetch(`http://localhost:3000/api/similar-products/${product.article_id}`)
       .then(response => response.json())
       .then(data => setAdditionalProducts(data))
