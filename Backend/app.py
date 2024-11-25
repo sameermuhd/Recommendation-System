@@ -1,6 +1,6 @@
 import subprocess
 
-REQUIRE = True
+REQUIRE = False
 
 # List of required modules
 required_modules = [
