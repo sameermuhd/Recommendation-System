@@ -238,12 +238,16 @@ def modify_user(user_id):
         # Dynamically build the update query based on provided fields
         updates = []
         values = []
-        allowed_fields = ["first_name", "last_name", "email", "phone_number", "birthday", "gender", "address"]
+        allowed_fields = ["first_name", "last_name", "email", "phone_number", "birthday", "gender", "address", "password"]
 
         for field in allowed_fields:
             if field in data:
                 updates.append(f"{field} = %s")
-                values.append(data[field])
+                if field == "password":
+                    hashed_password = bcrypt.generate_password_hash(data[field]).decode('utf-8')
+                    values.append(hashed_password)
+                else:
+                    values.append(data[field])
 
         if not updates:
             return jsonify({"error": "No valid fields provided to update"}), 400

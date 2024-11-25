@@ -114,10 +114,12 @@
 
 input[type="date"] {
   font-size: 16px;
-  padding: 8px 0px;
+  padding-left: 8px !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+  padding-right: 8px !important;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 100%;
 }
 
 /* Make the radio button bigger */
@@ -130,7 +132,7 @@ input[type="radio"] {
 
 /* Optional: Increase the font size of the label */
 label {
-  font-size: 18px;  /* Increase font size of labels */
+  font-size: 18px; /* Increase font size of labels */
   margin-right: 15px; /* Add space between labels */
   cursor: pointer;
 }
@@ -138,6 +140,7 @@ label {
 .gender-toggle {
   display: flex;
   justify-content: space-between;
+  gap: 8px;
   width: 100%;
 }
 
@@ -157,13 +160,13 @@ label {
 }
 
 .gender-toggle button.active {
-  background-color: #d4ebf2 ; /* Light purple, you can change this */
+  background-color: #d4ebf2; /* Light purple, you can change this */
   color: rgb(0, 0, 0);
   font-weight: bold;
 }
 
 .gender-toggle button:hover {
-  background-color: #d4ebf2 ;
+  background-color: #d4ebf2;
 }
 
 .gender-toggle button:focus {
@@ -173,8 +176,84 @@ label {
 label {
   letter-spacing: 3.5px; /* Adjust spacing as needed */
   font-size: 16px; /* Optional: Adjust font size */
-  font-weight: 500; /* Optional: Make it slightly bold */
+  font-weight: bold !important; /* Optional: Make it slightly bold */
   margin-bottom: 5px; /* Add space below the label */
   display: block; /* Ensure labels appear above inputs */
   text-transform: uppercase; /* Optional: Make labels uppercase for a modern look */
+}
+
+.view-mode-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.logout-button,
+.delete-account-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font: inherit;
+}
+
+.logout-button {
+  background-color: #4caf50;
+  color: white;
+}
+
+.logout-button:hover {
+  background-color: #45a049;
+}
+
+.delete-account-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.delete-account-button:hover {
+  background-color: #d32f2f;
+}
+
+.edit-button,
+.update-button,
+.cancel-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 0 5px;
+  font: inherit;
+}
+
+.edit-button {
+  background-color: #f4c542;
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: #e3b634;
+}
+
+.update-button {
+  background-color: #4caf50;
+  color: white;
+}
+
+.update-button:hover {
+  background-color: #45a049;
+}
+
+.cancel-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #d32f2f;
 }

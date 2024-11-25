@@ -24,8 +24,12 @@ function App() {
           element={isLoggedIn ? <Navigate to="/" replace /> : <LoginPage />}
         />
         <Route
+          path="/register"
+          element={<RegistrationForm isViewMode={false}/>}
+        />
+        <Route
           path="/getUserInfo"
-          element={<RegistrationForm />}
+          element={<RegistrationForm isViewMode={true}/>}
         />
         <Route path="/productsCollection" element={<ProductsCollectionPage />}></Route>
         <Route path="/product" element={<ProductPage />}></Route>

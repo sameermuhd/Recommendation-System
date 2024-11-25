@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import "./LoginPage.css";
 import Header from "../Components/Header";
 import FooterComponent from "../Components/FooterComponent";
@@ -37,61 +37,61 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const payload = {
       login_input: formData.emailOrPhone,
       password: formData.password,
     };
-  
+
     try {
-      const response = await fetch('http://localhost:3000/login', {
-        method: 'POST',
+      const response = await fetch("http://localhost:3000/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
       });
-  
+
       if (response.ok) {
         const data = await response.json();
         if (data.success) {
           showAlert(
             data.message,
-            'OK!',
+            "OK!",
             () => {
-              navigate('/');
+              navigate("/");
             },
-            'success',
+            "success",
             true
           );
           storeSession(data.user); // Store session
-          console.log('Session stored:', data.user);
+          console.log("Session stored:", data.user);
         } else {
           showAlert(
-            data.message || 'Login failed.',
-            'Try again!',
+            data.message || "Login failed.",
+            "Try again!",
             () => {},
-            'error',
+            "error",
             true
           );
         }
       } else {
         const errorData = await response.json();
         showAlert(
-          `Error: ${errorData.message || 'Login failed.'}`,
-          'Try again!',
+          `Error: ${errorData.message || "Login failed."}`,
+          "Try again!",
           () => {},
-          'error',
+          "error",
           true
         );
       }
     } catch (error) {
-      console.error('Error during API call:', error);
+      console.error("Error during API call:", error);
       showAlert(
-        'An error occurred while logging in. Please try again.',
-        'Try again!',
+        "An error occurred while logging in. Please try again.",
+        "Try again!",
         () => {},
-        'error',
+        "error",
         true
       );
     }
@@ -132,10 +132,21 @@ const Login = () => {
             />
           </div>
 
-          {/* Submit Button */}
-          <button type="submit" className="login-button">
-            Login
-          </button>
+          <div className="form-actions">
+            {/* Login Button */}
+            <button type="submit" className="login-button">
+              Login
+            </button>
+
+            {/* Register Button */}
+            <button
+              type="button"
+              className="register-button"
+              onClick={() => navigate("/register")} // Redirect to the registration page
+            >
+              Register
+            </button>
+          </div>
         </form>
       </div>
       <FooterComponent />
