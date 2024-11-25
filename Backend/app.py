@@ -1,6 +1,6 @@
 import subprocess
 
-REQUIRE = False
+REQUIRE = True
 
 # List of required modules
 required_modules = [
@@ -27,7 +27,6 @@ if REQUIRE:
 from flask import Flask, request, jsonify, send_file
 from flask_bcrypt import Bcrypt
 from flask_mysqldb import MySQL
-from dotenv import load_dotenv
 import re
 import pandas as pd
 import math
@@ -41,10 +40,10 @@ PORT = 3000
 bcrypt = Bcrypt(app)
 
 # MySQL configuration
-app.config['MYSQL_HOST'] = 'localhost' # os.getenv('MYSQL_HOST')
-app.config['MYSQL_USER'] = 'root' # os.getenv('MYSQL_USER')
-app.config['MYSQL_PASSWORD'] = '' # os.getenv('MYSQL_PASSWORD')
-app.config['MYSQL_DB'] = 'login_db' # os.getenv('MYSQL_DATABASE')
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root' 
+app.config['MYSQL_PASSWORD'] = '' 
+app.config['MYSQL_DB'] = 'login_db'
 
 mysql = MySQL(app)
 
