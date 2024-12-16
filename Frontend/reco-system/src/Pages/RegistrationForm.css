@@ -4,15 +4,15 @@
   align-items: center;
   background-color: #f8f8f8;
   font: inherit;
+  margin-bottom: 20px;
 }
 
 .registration-form {
   width: 80%;
   max-width: 800px;
   background: #ffffff;
+  margin-top: 20px;
   padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .form-row {
@@ -37,13 +37,13 @@
 .form-group textarea {
   padding: 10px;
   border: 1px solid #ddd;
-  border-radius: 5px;
   font-size: 14px;
   transition: border-color 0.2s ease;
   background-color: #e9f5f8;
   color: #000;
   color-scheme: white;
   font: inherit;
+  border-radius: 0px;
 }
 
 .form-group textarea {
@@ -89,7 +89,6 @@
   background-color: #007bff;
   color: #ffffff;
   border: none;
-  border-radius: 5px;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
@@ -119,7 +118,6 @@ input[type="date"] {
   padding-bottom: 8px !important;
   padding-right: 8px !important;
   border: 1px solid #ccc;
-  border-radius: 4px;
 }
 
 /* Make the radio button bigger */
@@ -156,7 +154,6 @@ label {
   text-align: center;
   color: black;
   font: inherit;
-  border-radius: 10px;
 }
 
 .gender-toggle button.active {
@@ -194,7 +191,6 @@ label {
   padding: 10px 20px;
   font-size: 16px;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   font: inherit;
@@ -224,7 +220,6 @@ label {
   padding: 10px 20px;
   font-size: 16px;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   margin: 0 5px;

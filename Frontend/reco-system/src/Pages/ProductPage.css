@@ -1,66 +1,196 @@
-/* ProductDetailsPage.css */
-
 .product-details-container {
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 20px;
-  }
-  
-  .content-container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .page-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    margin-left: 100px;
-    margin-right: 100px;
-  }
-  
-  .product-info {
-    display: flex;
-    align-items: center;
-    max-width: auto;
-    margin-left: 100px;
-    margin-right: 100px;
-  }
-  
-  .product-page-image {
-    width: 320px;
-    height: 480px;
-    object-fit: contain;
-    border-radius: 12px;
-    margin-right: 20px;
-    border: ridge;
-  }
-  
-  .product-description {
-    width: 80%; /* Take right half of the screen */
-  }
-  
-  .product-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #333;
-  }
-  
-  .product-type {
-    font-size: 18px;
-    margin-bottom: 10px;
-    color: #666;
-  }
-  
-  .additional-products {
-    margin-top: 20px;
-  }
-  
-  .additional-products-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
+  font-family: inherit;
+  color: black;
+}
 
-  
+product-details p {
+  font-size: 16px;
+}
+
+.content-container {
+  margin: 0 auto;
+  padding: 20px;
+  background: white;
+}
+
+.page-title {
+  font-size: 36px !important;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: black;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.product-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+  margin: 20px;
+}
+
+.product-page-image {
+  width: 380px;
+  height: 520px;
+  object-fit: scale-down;
+}
+
+.product-description {
+  flex: 1;
+  color: black !important;
+}
+
+.product-header {
+  margin-bottom: 20px;
+}
+
+.product-title {
+  font-size: 30px !important;
+  font-weight: bold !important;
+  margin-bottom: 10px !important;
+  color: black !important;
+  margin: 0px !important;
+}
+
+.product-type {
+  font-size: 20px;
+  margin: 0px;
+  color: black;
+  font-style: italic;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+  margin-bottom: 15px !important;
+  border-bottom: 3px solid #3498db;
+  display: inline-block;
+}
+
+.spec-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.spec-item {
+  font-size: 16px;
+  background: #eaf2f8;
+  padding: 10px;
+  color: black;
+}
+
+.pricing-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.delivery-date {
+  color: #27ae60;
+  font-weight: bold;
+  font-size: 18px !important;
+  margin: 0px;
+}
+
+.price-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price {
+  text-decoration: line-through;
+  color: #c0392b;
+}
+
+.discounted-price {
+  font-size: 22px;
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.product-actions {
+  margin-top: 30px;
+  display: flex;
+  gap: 15px;
+}
+
+.add-to-cart,
+.buy-now {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.add-to-cart:hover {
+  background-color: #2980b9;
+}
+
+.buy-now {
+  background-color: #2ecc71;
+}
+
+.buy-now:hover {
+  background-color: #27ae60;
+}
+
+.additional-products-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-top: 30px;
+  color: #2c3e50;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.additional-products {
+  margin-bottom: 15px;
+}
+
+.product-list {
+  display: flex;
+  justify-content: center;
+}
+
+.product-list .product-card {
+  flex: 1;
+  max-width: 250px;
+  padding: 15px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.product-list .product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.product-pricing {
+  margin-top: 0px;
+}
+
+.mrp-info {
+  font-size: 14px;
+  color: #7f8c8d;
+  margin-bottom: 5px;
+  margin: 0px;
+}
+
+.mrp-amount {
+  font-size: 28px;
+  font-weight: bold;
+  color: #2c3e50;
+  margin: 0px;
+}
+
+.section-desc-p {
+  margin: 0px;
+}

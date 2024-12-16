@@ -1,0 +1,75 @@
+.oc-thank-you-container {
+    text-align: center;
+    font-family: inherit;
+    color: #333;
+    line-height: 1.6;
+    background-color: #f8f9fa;
+}
+
+.oc-primary-text {
+    margin: 0 auto;
+    text-align: center;
+    max-width: 600px;
+}
+
+.oc-primary-text h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.oc-primary-text p {
+    font-size: 16px;
+    margin: 10px 0;
+    font-weight: 500;
+}
+
+.oc-primary-text a {
+    color: #000;
+    text-decoration: underline;
+}
+
+.oc-button-container {
+    margin: 30px 0;
+}
+
+.oc-order-confirmation-btn {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-family: inherit;
+}
+
+.oc-order-confirmation-btn:hover {
+    background-color: #444;
+}
+
+.oc-return-policy-link a {
+    color: #333;
+    font-size: 14px;
+}
+
+.oc-shipping-info-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: inherit;
+    color: #333;
+}
+
+.oc-shipping-item {
+    text-align: center;
+    flex: 1;
+}
+
+.oc-shipping-item p {
+    margin: 0;
+    font-size: 14px;
+}

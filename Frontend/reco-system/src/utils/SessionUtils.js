@@ -25,4 +25,5 @@ export const getSession = () => {
 // Clear session from localStorage
 export const clearSession = () => {
   localStorage.removeItem("userSession");
+  localStorage.removeItem("cart");
 };

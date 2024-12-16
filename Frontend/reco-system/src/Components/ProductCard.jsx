@@ -14,9 +14,9 @@ function ProductCard({ product }) {
   };
 
   return (
-    <div className="product-card">
-      <img src={imagePath} alt={product.prod_name} className='productImg'/>
-      <div className="product-details">
+    <div className="product-card-pp">
+      <img src={imagePath} alt={product.prod_name} className='productImg-pp'/>
+      <div className="product-details-pp">
         <h2>{product.prod_name}</h2>
         <p>{product.product_type_name}</p>
         <a href={`/product?product=${encodeProductInfo(product)}`} target = "_blank">View Details</a>

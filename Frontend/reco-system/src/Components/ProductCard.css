@@ -1,19 +1,15 @@
 /* ProductCard.css */
 
-.product-card {
-  background-color: #ffffff;
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for depth */
-  overflow: hidden;
-  transition: transform 0.3s ease; /* Smooth transition */
+.product-card-pp {
+  transition: transform 0.3s ease;
   border: groove;
 }
 
-.product-card:hover {
+.product-card-pp:hover {
   transform: translateY(-5px); /* Lift the card on hover */
 }
 
-.productImg {
+.productImg-pp {
   width: 100%;
   height: 250px; /* Fixed height */
   object-fit: contain;
@@ -22,34 +18,28 @@
   padding-top: 10px;
 }
 
-.product-details {
+.product-details-pp {
   padding: 10px;
 }
 
-.product-details h2 {
+.product-details-pp h2 {
   font-size: 14px; /* Larger font size */
   font-weight: bold;
   margin-bottom: 0px;
   margin-top: auto;
 }
 
-.product-details p {
+.product-details-pp p {
   font-size: 16px; /* Larger font size */
   margin-top: auto;
   margin-bottom: 3px;
 }
 
-.product-details a {
+.product-details-pp a {
   display: block; /* Change to block to center the button */
-  background-color: #007bff; /* Blue background color for the link */
-  color: #fff; /* White text color */
-  padding: 10px 10px; /* Increased padding */
-  border-radius: 4px; /* Rounded corners */
+  background-color: inherit; /* Blue background color for the link */
+  color: black; /* White text color */
   text-decoration: none;
   transition: background-color 0.3s ease; /* Smooth transition */
-  text-align: center; /* Center align text */
-}
-
-.product-details a:hover {
-  background-color: #0056b3; /* Darker blue background color on hover */
+  text-align: left; /* Center align text */
 }
